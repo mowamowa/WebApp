@@ -1,0 +1,22 @@
+version: '3'
+services: 
+    gin:
+        build: ./go
+        container_name: gin
+        ports: 
+            - "8080:8080"
+    
+    db:
+        image: mysql:5.7
+        container_name: db
+        environment: 
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: test_database
+            MYSQL_USER: docker
+            MYSQL_USER: docker
+        ports:
+            - "13306:3306"
+        # /var/lib/mysql→コンテナのmysqlのシステムファイル
+        volumes: 
+            - ./db/mysql_init:/docker-entrypoint-initdb.d
+            - ./db/mysql_data:/var/lib/mysql
